@@ -1,8 +1,7 @@
 <?php
 
 
-namespace App\Shop\Customer\Repositories;
-
+namespace App\Shop\Customer\Exceptions;
 
 use Exception;
 

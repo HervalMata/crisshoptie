@@ -5,11 +5,13 @@ namespace App\Shop\Customer;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Nicolaslopezj\Searchable\SearchableTrait;
 
 class Customer extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use SearchableTrait;
 
     protected $dates = ['deleted_at'];
 
@@ -39,4 +41,20 @@ class Customer extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $searchable = [
+        'columns' => [
+            'customers.name' => 10,
+            'customers.email' => 5
+        ]
+    ];
+
+    /**
+     * @param string $text
+     * @return mixed
+     */
+    public function searchCustomer($term)
+    {
+        return self::search($term);
+    }
 }

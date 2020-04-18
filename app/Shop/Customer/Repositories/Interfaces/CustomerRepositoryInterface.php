@@ -6,8 +6,8 @@ namespace App\Shop\Customer\Repositories\Interfaces;
 
 use App\Repositories\BaseRepositoryInterface;
 use App\Shop\Customer\Customer;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as Support;
-use League\Fractal\Resource\Collection;
 
 interface CustomerRepositoryInterface extends BaseRepositoryInterface
 {

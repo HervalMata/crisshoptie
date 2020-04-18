@@ -7,9 +7,10 @@ namespace App\Shop\Customer\Repositories;
 use App\Repositories\BaseRepository;
 use App\Shop\Customer\Customer;
 use App\Shop\Customer\Repositories\Interfaces\CustomerRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Collection as Support;
 
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
 {
@@ -20,7 +21,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         $this->model = $customer;
     }
 
-    public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Collection
+    public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Support
     {
         return $this->all($columns, $order, $sort);
     }
@@ -68,7 +69,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
      * @param string $text
      * @return \League\Fractal\Resource\Collection
      */
-    public function searchCustomer(string $text): \League\Fractal\Resource\Collection
+    public function searchCustomer(string $text = null): Collection
     {
         if (is_null($text)) {
             return $this->all();
