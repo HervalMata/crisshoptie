@@ -16,3 +16,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.'], function () {
+    Route::namespace('Admin')->group(function () {
+        Route::group(['middleware' => ['role:admin, guard:employee']], function () {
+            Route::namespace('Customers')->group(function () {
+                Route::resource('customers', 'CustomerController');
+            });
+        });
+    });
+});
