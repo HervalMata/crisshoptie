@@ -2,6 +2,7 @@
 
 namespace App\Shop\Customer;
 
+use App\Shop\Address\Address;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -56,5 +57,13 @@ class Customer extends Authenticatable
     public function searchCustomer($term)
     {
         return self::search($term);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function addresses()
+    {
+        return $this->hasMany(Address::class)->whereStatus(true);
     }
 }

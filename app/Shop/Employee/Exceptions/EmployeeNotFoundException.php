@@ -9,6 +9,6 @@ class EmployeeNotFoundException extends NotFoundHttpException
 {
     public function __construct()
     {
-        parent::__construct("Employee not found.");
+        parent::__construct("Empregado não encontrado.");
     }
 }
