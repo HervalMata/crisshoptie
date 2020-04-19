@@ -6,6 +6,9 @@ namespace App\Shop\Customer\Repositories;
 
 use App\Repositories\BaseRepository;
 use App\Shop\Customer\Customer;
+use App\Shop\Customer\Exceptions\CreateCustomerInvalidArgumentException;
+use App\Shop\Customer\Exceptions\CustomerNotFoundException;
+use App\Shop\Customer\Exceptions\UpdateCustomerInvalidArgumentException;
 use App\Shop\Customer\Repositories\Interfaces\CustomerRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -15,17 +18,32 @@ use Illuminate\Support\Collection as Support;
 class CustomerRepository extends BaseRepository implements CustomerRepositoryInterface
 {
 
+    /**
+     * CustomerRepository constructor.
+     * @param Customer $customer
+     */
     public function __construct(Customer $customer)
     {
         parent::__construct($customer);
         $this->model = $customer;
     }
 
+    /**
+     * @param string $order
+     * @param string $sort
+     * @param array $columns
+     * @return Support
+     */
     public function listCustomers(string $order = 'id', string $sort = 'desc', array $columns = ['*']): Support
     {
         return $this->all($columns, $order, $sort);
     }
 
+    /**
+     * @param array $params
+     * @return Customer
+     * @throws CreateCustomerInvalidArgumentException
+     */
     public function createCustomer(array $params): Customer
     {
         try {
@@ -42,6 +60,11 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         }
     }
 
+    /**
+     * @param array $params
+     * @return bool
+     * @throws UpdateCustomerInvalidArgumentException
+     */
     public function updateCustomer(array $params): bool
     {
         try {
@@ -51,6 +74,11 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         }
     }
 
+    /**
+     * @param int $id
+     * @return Customer
+     * @throws CustomerNotFoundException
+     */
     public function findCustomer(int $id): Customer
     {
         try {
@@ -60,6 +88,9 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
         }
     }
 
+    /**
+     * @return bool
+     */
     public function deleteCustomer(): bool
     {
         return $this->delete();
@@ -67,7 +98,7 @@ class CustomerRepository extends BaseRepository implements CustomerRepositoryInt
 
     /**
      * @param string $text
-     * @return \League\Fractal\Resource\Collection
+     * @return Collection
      */
     public function searchCustomer(string $text = null): Collection
     {

@@ -7,7 +7,6 @@ namespace Tests\Unit\Customers;
 use App\Shop\Customer\Customer;
 use App\Shop\Customer\Repositories\CustomerNotFoundException;
 use App\Shop\Customer\Repositories\CustomerRepository;
-use App\Shop\Customer\Repositories\UpdateCustomerInvalidArgumentException;
 use App\Shop\Customer\Transformations\CustomerTransformable;
 use Faker\Factory as faker;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

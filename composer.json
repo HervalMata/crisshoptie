@@ -15,7 +15,8 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "spatie/laravel-fractal": "^5.7",
-        "nicolaslopezj/searchable": "1.*"
+        "nicolaslopezj/searchable": "1.*",
+        "santigarcor/laratrust": "5.2.8"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

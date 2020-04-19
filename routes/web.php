@@ -25,5 +25,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['employee'], 'as' => 'admin.
                 Route::resource('customers', 'CustomerController');
             });
         });
+        Route::group(['middleware' => ['role:admin, guard:employee']], function () {
+            Route::resource('employees', 'EmployeeController');
+            Route::get('employees/{id}/profile', 'EmployeeController@getProfile')->name('employee.profile');
+            Route::put('employees/{id}/profile', 'EmployeeController@updateProfile')->name('employee.profile.update');
+            Route::resource('roles', 'RoleController');
+            Route::resource('permissions', 'PermissionController');
+        });
     });
 });
