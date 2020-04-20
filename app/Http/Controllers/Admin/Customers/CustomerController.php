@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Admin\Customers;
 use App\Http\Controllers\Controller;
 use App\Shop\Customer\Customer;
 use App\Shop\Customer\Repositories\CustomerRepository;
-use App\Shop\Customer\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Shop\Customer\Repositories\Interfaces\CustomerRepositoryInterface;
 use App\Shop\Customer\Repositories\UpdateCustomerInvalidArgumentException;
+use App\Shop\Customer\Requests\CreateCustomerRequest;
 use App\Shop\Customer\Requests\CreateEmployeeRequest;
+use App\Shop\Customer\Requests\UpdateCustomerRequest;
 use App\Shop\Customer\Requests\UpdateEmployeeRequest;
 use App\Shop\Customer\Transformations\CustomerTransformable;
 use Illuminate\Contracts\View\Factory;
@@ -21,15 +23,15 @@ class CustomerController extends Controller
     use CustomerTransformable;
 
     /**
-     * @var EmployeeRepositoryInterface
+     * @var CustomerRepositoryInterface
      */
     private $customerRepository;
 
     /**
      * CustomerController constructor.
-     * @param EmployeeRepositoryInterface $customerRepository
+     * @param CustomerRepositoryInterface $customerRepository
      */
-    public function __construct(EmployeeRepositoryInterface $customerRepository)
+    public function __construct(CustomerRepositoryInterface $customerRepository)
     {
         $this->customerRepository = $customerRepository;
     }
@@ -60,10 +62,10 @@ class CustomerController extends Controller
     }
 
     /**
-     * @param CreateEmployeeRequest $request
+     * @param CreateCustomerRequest $request
      * @return RedirectResponse
      */
-    public function store(CreateEmployeeRequest $request)
+    public function store(CreateCustomerRequest $request)
     {
         $this->customerRepository->createCustomer($request->except('_token', '_method'));
         return redirect()->route('admin.customers.index');
@@ -92,12 +94,12 @@ class CustomerController extends Controller
     }
 
     /**
-     * @param UpdateEmployeeRequest $request
+     * @param UpdateCustomerRequest $request
      * @param $id
      * @return RedirectResponse
-     * @throws UpdateCustomerInvalidArgumentException
+     * @throws \App\Shop\Customer\Exceptions\UpdateCustomerInvalidArgumentException
      */
-    public function update(UpdateEmployeeRequest $request, $id)
+    public function update(UpdateCustomerRequest $request, $id)
     {
         $customer = $this->customerRepository->findCustomer($id);
 

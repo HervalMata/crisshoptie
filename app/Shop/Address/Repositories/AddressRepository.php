@@ -4,7 +4,7 @@
 namespace App\Shop\Address\Repositories;
 
 
-use AdressTransformable;
+use AddressTransformable;
 use App\Repositories\BaseRepository;
 use App\Shop\Address\Address;
 use App\Shop\Address\Exceptions\AddressNotFoundException;
@@ -21,7 +21,7 @@ use Illuminate\Support\Collection;
 
 class AddressRepository extends BaseRepository implements AddressRepositoryInterface
 {
-    use AdressTransformable;
+    use AddressTransformable;
 
     /**
      * AddressRepository constructor.

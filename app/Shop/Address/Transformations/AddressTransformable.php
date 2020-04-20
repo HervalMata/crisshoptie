@@ -12,7 +12,7 @@ use App\Shop\Customer\Repositories\CustomerRepository;
 use App\Shop\Province\Province;
 use App\Shop\Province\Repositories\ProvinceRepository;
 
-trait AdressTransformable
+trait AddressTransformable
 {
     /**
      * @param Address $address
